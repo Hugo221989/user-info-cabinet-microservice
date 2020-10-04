@@ -1,0 +1,21 @@
+server:
+  port: 8081
+eureka:
+  client:
+    serviceUrl:
+      #defaultZone: http://192.168.99.101:8761/eureka
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+#spring:
+#  application:
+#    name: user-info
+#  cloud:
+#    config:
+#      #uri: http://192.168.99.101:8888
+#      uri: http://localhost:8888
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
