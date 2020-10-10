@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.micro.userinfo.entity.Student;
+import com.micro.userinfo.model.StudentListDto;
 import com.micro.userinfo.model.StudentsListFilter;
 import com.micro.userinfo.model.StudentsPage;
 import com.micro.userinfo.service.StudentService;
@@ -32,13 +33,19 @@ public class UserController {
 	@Autowired
 	private StudentService studentService; 
 	
-	@GetMapping("/all")
-	@ApiOperation(value = "Obtener todos los alumnos", notes = "Este servicio web obtiene una lista de todos los alumnos.", response = Page.class, responseContainer = "Page")
-	public StudentsPage getAllStudents(@ApiParam(name ="page", example="1", value = "1", required = false)@RequestParam(required = false, defaultValue = "0") int page,
+	@GetMapping("/allList")
+	@ApiOperation(value = "Obtener toda la lista de los alumnos", notes = "Este servicio web obtiene una lista de todos los alumnos.", response = StudentListDto.class, responseContainer = "StudentListDto")
+	public StudentListDto getAllStudentsList() {
+		return this.studentService.getAllStudentsList();
+	}
+	
+	@GetMapping("/allPage")
+	@ApiOperation(value = "Obtener todos los alumnos paginada", notes = "Este servicio web obtiene una lista de todos los alumnos paginada.", response = Page.class, responseContainer = "Page")
+	public StudentsPage getAllStudentsPage(@ApiParam(name ="page", example="1", value = "1", required = false)@RequestParam(required = false, defaultValue = "0") int page,
 			@ApiParam(name ="size", example="1", value = "5", required = false)@RequestParam(required = false, defaultValue = "5") int size,
 			@ApiParam(name ="textToSearch", example="Ramon", value = "Ramon", required = false)@RequestParam(required = false) String textToSearch) {
 		StudentsListFilter studentsListFilter = new StudentsListFilter(page, size, textToSearch);
-		return this.studentService.getAllStudents(studentsListFilter);
+		return this.studentService.getAllStudentsPage(studentsListFilter);
 	}
 
 	@GetMapping("/")

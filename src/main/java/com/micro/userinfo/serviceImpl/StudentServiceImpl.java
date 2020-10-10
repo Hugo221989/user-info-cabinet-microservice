@@ -1,5 +1,7 @@
 package com.micro.userinfo.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -7,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.micro.userinfo.entity.Diagnosis;
 import com.micro.userinfo.entity.Student;
 import com.micro.userinfo.exception.NotFoundException;
-import com.micro.userinfo.model.StudentDto;
+import com.micro.userinfo.model.StudentListDto;
 import com.micro.userinfo.model.StudentsListFilter;
 import com.micro.userinfo.model.StudentsPage;
 import com.micro.userinfo.repository.StudentRepository;
@@ -20,7 +22,14 @@ public class StudentServiceImpl implements StudentService {
 	private StudentRepository studentRepository;
 
 	@Override
-	public StudentsPage getAllStudents(StudentsListFilter studentsListFilter) {
+	public StudentListDto getAllStudentsList() {
+		List<Student> studentsList = this.studentRepository.findAll();
+		StudentListDto StudentListDto = new StudentListDto(studentsList);
+		return StudentListDto;
+	}
+	
+	@Override
+	public StudentsPage getAllStudentsPage(StudentsListFilter studentsListFilter) {
 		PageRequest pageable = PageRequest.of(studentsListFilter.getPage(), studentsListFilter.getSize());
 		Page<Student> studentsPage;
 		if(null != studentsListFilter.getTextToSearch() && !"".equals(studentsListFilter.getTextToSearch()) && !"null".equals(studentsListFilter.getTextToSearch()))
