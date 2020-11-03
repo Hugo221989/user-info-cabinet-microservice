@@ -2,7 +2,6 @@ package com.micro.userinfo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,7 +39,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/allPage")
-	@ApiOperation(value = "Obtener todos los alumnos paginada", notes = "Este servicio web obtiene una lista de todos los alumnos paginada.", response = Page.class, responseContainer = "Page")
+	@ApiOperation(value = "Obtener todos los alumnos paginada", notes = "Este servicio web obtiene una lista de todos los alumnos paginada.", response = StudentsPage.class, responseContainer = "StudentsPage")
 	public StudentsPage getAllStudentsPage(@ApiParam(name ="page", example="1", value = "1", required = false)@RequestParam(required = false, defaultValue = "0") int page,
 			@ApiParam(name ="size", example="1", value = "5", required = false)@RequestParam(required = false, defaultValue = "5") int size,
 			@ApiParam(name ="textToSearch", example="Ramon", value = "Ramon", required = false)@RequestParam(required = false) String textToSearch) {
